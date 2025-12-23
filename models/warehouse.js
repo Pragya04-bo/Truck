@@ -1,23 +1,32 @@
-import mongoose, { mongo } from "mongoose";
-import validator from "validator";
+ import mongoose from "mongoose";
 
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-const warehouseSchema=new mongoose.Schema({
- warehouseId:{type:String,
-required:true,
-unique:true,
+const warehouseSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
 
+    warehouseId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
 
-},
-location: { type: String, required: true },
+    location: {
+      lat: {
+        type: Number,
+        required: true,
+      },
+      lng: {
+        type: Number,
+        required: true,
+      },
+    },
+  },
+  { timestamps: true }
+);
 
-
-
-
-});
-const WH = mongoose.model("Warehouse", warehouseSchema);
-
-export default WH;
-
-
+const Warehouse = mongoose.model("Warehouse", warehouseSchema);
+export default Warehouse;
