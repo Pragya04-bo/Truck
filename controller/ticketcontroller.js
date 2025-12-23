@@ -10,7 +10,7 @@ import Truck from "../models/truckschema.js";
 
   const { weight, volume, boxes, destination, deadline } = req.body;
 
-  if (!weight || !volume || !destination || !deadline) {
+  if (!weight || !volume ||!destination ||!deadline) {
     return next(new ErrHandler("Please fill all shipment details", 400));
   }
 
