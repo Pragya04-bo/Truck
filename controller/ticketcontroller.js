@@ -3,7 +3,7 @@ import ErrHandler from "../middlewares/error.js";
 import Ticket from "../models/ticketschema.js";
 import Truck from "../models/truckschema.js";
 
-/* ================= CREATE SHIPMENT ================= */
+/*  CREATE SHIPMENT  */
 export const createTicket = catchAsyncError(async (req, res, next) => {
   if (req.user.role !== "Warehouse") {
     return next(new ErrHandler("Only warehouses can create shipments", 403));
@@ -30,7 +30,7 @@ export const createTicket = catchAsyncError(async (req, res, next) => {
   });
 });
 
-/* ================= GET MY SHIPMENTS ================= */
+/* SHIPMENTS  */
 export const getMyTickets = catchAsyncError(async (req, res, next) => {
   const tickets = await Ticket.find({ warehouse: req.user._id });
 
