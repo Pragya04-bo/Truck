@@ -1,17 +1,21 @@
-import mongoose from "mongoose";
+ import mongoose from "mongoose";
 
-const truckSchema = new mongoose.Schema({
-  truckId: { type: String, required: true, unique: true },
-  truckDriver: { type: String, required: true },
-  truckDealer: { type: String, required: true },  
-  capacity: { type: Number, required: true },  
-  location: { type: String },  
-  truckType: { type: String },
-  travelTime: { type: String },  
-  booked: { type: Boolean, default: false },
+const ticketSchema = new mongoose.Schema({
+  truckId: { type: mongoose.Schema.Types.ObjectId, ref: "Truck", required: true },
+  warehouseId: { type: mongoose.Schema.Types.ObjectId, ref: "Warehouse", required: true },
+  departure: { type: String }, 
+  arrival: { type: String },
   deadline: { type: Date },
+  shipmentVolume: { type: Number },
+  weight: { type: Number },
+  numberOfBoxes: { type: Number },
+  state: {
+    type: String,
+    enum: ["Pending", "Approved", "Assigned", "Picked", "In Transit", "Delivered"],
+    default: "Pending",
+  },
 });
 
-const Truck = mongoose.model("Truck", truckSchema);
+const Ticket = mongoose.model("Ticket", ticketSchema);
 
-export { Truck };
+export { Ticket };
